@@ -6,7 +6,7 @@ app = Flask(__name__)
 # Route for the home page
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('/index.html')
 
 # Route to handle form submission or other POST requests
 @app.route('/submit', methods=['POST'])
