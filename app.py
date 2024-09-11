@@ -6,23 +6,23 @@ app = Flask(__name__)
 # Route for the home page
 @app.route('/')
 def home():
-    return render_template('index')
+    return render_template('/index.html')
 
 @app.route('/scan')
 def scan():
-    return render_template('scan')
+    return render_template('/scan.html')
 
 @app.route('/dailyTasks')
 def task():
-    return render_template('dailyTasks')
+    return render_template('/dailyTasks.html')
 
 @app.route('/leaderboard')
 def leaderboard():
-    return render_template('leaderboard')
+    return render_template('/leaderboard.html')
 
 @app.route('/myRewards')
 def myRewards():
-    return render_template('myRewards')
+    return render_template('/myRewards.html')
 # Route to handle form submission or other POST requests
 @app.route('/submit', methods=['POST'])
 def submit():
