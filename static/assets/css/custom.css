@@ -141,6 +141,16 @@ a:hover, a:visited {
     );
 }
 
+.heading-container {
+margin-top: 10px; /* Reduce top margin */
+margin-bottom: 10px; /* Reduce bottom margin */
+}
+.heading-container h1 {
+color: #004de6; /* Change text color */
+}
+.card-body h5 {
+    color: #004de6; /* Change text color */
+    }
 .button-82-front {
     display: block;
     position: relative;
