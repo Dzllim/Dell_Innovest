@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instructions</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto; /* Center the container horizontally */
+        }
+        .instructions-img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .audio-instructions, .btn-start {
+            display: block;
+            margin: 0 auto; /* Center elements horizontally */
+        }
+        .audio-instructions {
+            margin-bottom: 20px;
+        }
+        .btn-start {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Instructions for Health Assessment</h1>
+        <p>Please follow the instructions below to ensure an accurate health assessment:</p>
+        <ul class="list-unstyled">
+            <li>Stand in a well-lit area with your feet shoulder-width apart.</li>
+            <li>Position the camera at eye level, about 3-4 feet away, to capture your full body.</li>
+            <li>Ensure you are centered in the frame with a clear background.</li>
+            <li>Stand upright with your shoulders relaxed and arms hanging naturally by your sides.</li>
+            <li>Follow any additional instructions provided.</li>
+        </ul>
+
+        <!-- Visual Instructions -->
+        <img src="../static/assets/img/instructions.png" alt="Instructions Image" class="instructions-img">
+        
+        <!-- Audio Instructions -->
+        <audio id="audioInstructions" class="audio-instructions" controls>
+            <source src="../static/assets/voice/instructions.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
+        </audio>
+        
+        <!-- Acknowledge Consent Button -->
+        <button id="startScanBtn" class="btn btn-primary btn-start">I Understand, Start Scanning</button>
+    </div>
+
+    <script>
+        document.getElementById('startScanBtn').addEventListener('click', function() {
+            window.location.href = '/scan'; // Redirect to the scan page
+        });
+    </script>
+</body>
+</html>

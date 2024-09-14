@@ -1,1 +1,11 @@
-reward page
+{% extends "index.html" %}
+
+{% block title %}
+    {{my_title | default("My Rewards")}}
+{% endblock %}
+
+{% block content %}
+<div>
+Sorry you currently don't have any rewards
+</div>
+{% endblock %}

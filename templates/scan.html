@@ -3,106 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scan in Progress</title>
+    <title>Scan</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            text-align: center;
-        }
+        /* Ensure the video takes up the full width and height of its container */
         video {
             width: 100%;
             height: auto;
+            object-fit: cover; /* Maintain aspect ratio */
         }
-        #countdown {
-            font-size: 2em;
-            margin-top: 20px;
+
+        /* Container for centering and controlling video */
+        .video-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full screen height */
+            width: 100vw;  /* Full screen width */
+            position: relative;
         }
-        #return-btn {
-            display: none; 
-            margin-top: 20px;
-        }
-        .blue-button {
-            display: inline-block;
-            padding: 15px 30px;
-            background-color: #007bff;
+
+        /* Countdown and message styling */
+        .status-message {
+            position: absolute;
+            top: 10px;
+            width: 100%;
+            text-align: center;
             color: white;
-            text-decoration: none;
-            font-size: 1.2em;
-            border-radius: 5px;
+            font-size: 1.5rem;
+            background-color: rgba(0, 0, 0, 0.5); /* Transparent background */
+            padding: 10px;
         }
-        .blue-button:hover {
-            background-color: #0056b3;
-            text-decoration: none;
+
+        .countdown {
+            position: absolute;
+            bottom: 60px; /* Adjust to fit above the return button */
+            width: 100%;
+            text-align: center;
+            font-size: 2rem;
             color: white;
+        }
+
+        /* Button styling */
+        .return-button {
+            display: none; /* Hide button initially */
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Hide any overflow for clean display */
         }
     </style>
 </head>
 <body>
 
-    <h1>Scanning in progress...</h1>
-    <div id="countdown">10</div> <!-- Countdown for 10 seconds -->
-    <a id="return-btn" class="blue-button btn-primary btn-block" href="/">Return to Home</a>
-    <video id="webcam" autoplay></video>
+<!-- Video Container for the Camera Feed -->
+<div class="video-container">
+    <video id="camera" autoplay></video>
+    
+    <!-- Status message (e.g., scanning in progress, scan complete) -->
+    <div id="statusMessage" class="status-message">Scanning in process...</div>
 
-    <!-- TensorFlow.js and PoseNet libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet"></script>
+    <!-- Countdown display -->
+    <div id="countdown" class="countdown">10</div>
 
-    <script>
-        const videoElement = document.getElementById('webcam');
-        const countdownElement = document.getElementById('countdown');
-        const returnButton = document.getElementById('return-btn');
+    <!-- Return to Home button -->
+    <button id="returnButton" class="return-button btn btn-primary">Return to Home</button>
+</div>
 
-        async function setupCamera() {
-            const stream = await navigator.mediaDevices.getUserMedia({
-                video: true,
-            });
-            videoElement.srcObject = stream;
-            return new Promise((resolve) => {
-                videoElement.onloadedmetadata = () => {
-                    resolve(videoElement);
-                };
-            });
-        }
+<!-- JavaScript for Camera, Countdown, and Scan Status -->
+<script>
+    const videoElement = document.getElementById('camera');
+    const statusMessage = document.getElementById('statusMessage');
+    const countdownElement = document.getElementById('countdown');
+    const returnButton = document.getElementById('returnButton');
+    let countdownValue = 10; // 30-second countdown for scanning
 
-        async function loadAndPredict() {
-            const net = await posenet.load();
-            const video = await setupCamera();
-            video.play();
+    // Function to start the countdown timer
+    function startCountdown() {
+        const countdownInterval = setInterval(() => {
+            countdownElement.textContent = countdownValue;
+            countdownValue--;
 
-            function detectPose() {
-                // Estimation logic for the pose detection goes here
-                net.estimateSinglePose(video, { flipHorizontal: false }).then((pose) => {
-                    // Logic for motion tracking/health analysis goes here
-                    console.log(pose);
-                });
+            // When countdown finishes, stop camera and update the status
+            if (countdownValue < 0) {
+                clearInterval(countdownInterval);
+                countdownElement.textContent = ''; // Clear the countdown text
+                statusMessage.textContent = 'Scan complete!';
+                returnButton.style.display = 'block'; // Show the return button
+                stopCamera(); // Stop the camera feed after the scan
             }
+        }, 1000);
+    }
 
-            let timeLeft = 10;
-            const countdownInterval = setInterval(() => {
-                if (timeLeft > 0) {
-                    timeLeft--;
-                    countdownElement.textContent = timeLeft;
-                    detectPose();  //continues to detect pose while counting down
-                } else {
-                    clearInterval(countdownInterval);
-                    endScan();
-                }
-            }, 1000);
-        }
+    // Function to access the camera
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({
+            video: {
+                width: { ideal: 1280 },
+                height: { ideal: 720 },
+                facingMode: 'environment' // Rear camera for mobile devices
+            }
+        }).then(function(stream) {
+            videoElement.srcObject = stream;
+            videoElement.play();
+            startCountdown(); // Start the countdown once the camera feed begins
+        }).catch(function(err) {
+            console.error("Error accessing the camera: ", err);
+            statusMessage.textContent = 'Camera access failed!';
+        });
+    } else {
+        alert('Camera not supported on this device.');
+        statusMessage.textContent = 'Camera not supported on this device.';
+    }
 
-        function endScan() {
-            videoElement.srcObject.getTracks().forEach(track => track.stop());
-            countdownElement.textContent = "Scan Complete!";
-            returnButton.style.display = "block"; //dusplay the return button once scan is done
-        }
+    // Function to stop the camera feed after scanning completes
+    function stopCamera() {
+        const stream = videoElement.srcObject;
+        const tracks = stream.getTracks();
 
-        function goHome() {
-            window.location.href = 'index.html'; //redirects to the homepage, need to update the button later
-        }
+        tracks.forEach(track => {
+            track.stop(); // Stop each track
+        });
 
-        loadAndPredict(); //initialises the scan
-    </script>
+        videoElement.srcObject = null; // Clear the video feed
+    }
+
+    // Event listener for the return button
+    returnButton.addEventListener('click', () => {
+        window.location.href = '/'; // Redirect to the home page
+    });
+</script>
 
 </body>
 </html>

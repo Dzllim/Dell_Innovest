@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% block head %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IM-FIT Home Page</title>
+    <title>
+    {% block title %}
+    {{my_title | default("IM-FIT")}}
+    {% endblock %}
+    </title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
     integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="../static/assets/css/custom.css">
     <link href="https://fonts.googleapis.com/css2?family=More+Sugar:wght@400;700&display=swap" rel="stylesheet">
+    {% endblock %}
 </head>
 <body>
 
@@ -30,14 +36,14 @@
                     </button>
                 </div>
             </div>
-            
+            {% block content %}
             <div class="row btn-grp">
                 <div class="col-sm-6 indexbtn">
                     <button class="button-82-pushable btn-block" role="button">
                         <span class="button-82-shadow"></span>
                         <span class="button-82-edge"></span>
                         <span class="button-82-front text">
-                            <a class="blue-button" href="scan">
+                            <a class="blue-button" href="instructions">
                                 Scan
                                 <div class="speaker">🔊</div>
                             </a>
@@ -85,8 +91,9 @@
             </div>             
             <div class="streak">
                 <div class="fire">🔥</div>
-                Day 1 <!-- this is a placeholder -->
+                Day {{my_days}} <!-- this is a placeholder -->
             </div> 
+            {% endblock %}
             </div> 
         </div>
     </div>      
