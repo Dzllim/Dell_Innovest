@@ -4,8 +4,9 @@ body {
     font-size: 18px; /* Increased base font size */
     font-family: 'San Francisco', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
-.row btn-grp{
-    margin-bottom: 10;
+.btn-grp{
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 a {
     text-decoration: none;
