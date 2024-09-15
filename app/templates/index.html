@@ -14,6 +14,21 @@
     <link rel="stylesheet" href="../static/assets/css/custom.css">
     <link href="https://fonts.googleapis.com/css2?family=More+Sugar:wght@400;700&display=swap" rel="stylesheet">
     {% endblock %}
+
+    <!-- This is for the TTS for the speaker buttons -->
+    <script> 
+        function speakText(text) {
+            event.preventDefault();
+            event.stopPropagation();
+            if ('speechSynthesis' in window) {
+                var utterance = new SpeechSynthesisUtterance(text);
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert('Your browser does not support speech synthesis.');
+            }
+        }
+    </script>
+
 </head>
 <body>
 
@@ -31,7 +46,7 @@
                         <span class="button-82-shadow"></span>
                         <span class="button-82-edge"></span>
                         <span class="button-82-front text" style="height: 60px;">
-                            ENG / Change Lang
+                            ENG / 中文
                         </span>
                     </button>
                 </div>
@@ -39,54 +54,58 @@
             {% block content %}
             <div class="row btn-grp">
                 <div class="col-sm-6 indexbtn">
-                    <button class="button-82-pushable btn-block" role="button">
-                        <span class="button-82-shadow"></span>
-                        <span class="button-82-edge"></span>
-                        <span class="button-82-front text">
-                            <a class="blue-button" href="instructions">
+                    <!-- Added the action here so that the whole button is pressable to redirect. Added the TTS on the speaker Icon which just plays the audio -->
+                    <a class="button-82-pushable btn-block" href="instructions">
+                        <button class="button-82-pushable btn-block" role ="button">
+                            <span class="button-82-shadow"></span>
+                            <span class="button-82-edge"></span>
+                            <span class="button-82-front text">
                                 Scan
-                                <div class="speaker">🔊</div>
-                            </a>
-                        </span>
-                    </button>
+                                <div class="speaker" onclick="speakText('Scan')">🔊</div>
+                            </span>
+                        </button>
+                    </a>
                 </div>
                 <div class="col-sm-6 indexbtn">
-                    <button class="button-82-pushable btn-block" role="button">
-                        <span class="button-82-shadow"></span>
-                        <span class="button-82-edge"></span>
-                        <span class="button-82-front text">
-                            <a class="blue-button" href="dailyTasks">
-                                Daily Tasks
-                                <div class="speaker">🔊</div>
-                            </a>
-                        </span>
-                    </button>
+                    <!-- Added the action here so that the whole button is pressable to redirect. Added the TTS on the speaker Icon which just plays the audio -->
+                    <a class="button-82-pushable btn-block" href="dailyTasks">
+                        <button class="button-82-pushable btn-block" role="button">
+                            <span class="button-82-shadow"></span>
+                            <span class="button-82-edge"></span>
+                            <span class="button-82-front text">
+                                    Daily Tasks
+                                    <div class="speaker" onclick="speakText('Daily Tasks')">🔊</div>
+                            </span>
+                        </button>
+                    </a>
                 </div>
             </div>
             <div class="row btn-grp">
                 <div class="col-sm-6 indexbtn">
-                    <button class="button-82-pushable btn-block" role="button">
-                        <span class="button-82-shadow"></span>
-                        <span class="button-82-edge"></span>
-                        <span class="button-82-front text">
-                            <a class="blue-button" href="leaderboard">
-                                Leaderboard
-                                <div class="speaker">🔊</div>
-                            </a>
-                        </span>
-                    </button>
+                    <!-- Added the action here so that the whole button is pressable to redirect. Added the TTS on the speaker Icon which just plays the audio -->
+                    <a class="button-82-pushable btn-block" href="leaderboard">
+                        <button class="button-82-pushable btn-block" role="button">
+                            <span class="button-82-shadow"></span>
+                            <span class="button-82-edge"></span>
+                            <span class="button-82-front text">
+                                    Leaderboard
+                                    <div class="speaker" onclick="speakText('Leaderboard')">🔊</div>
+                            </span>
+                        </button>
+                    </a>
                 </div>
                 <div class="col-sm-6 indexbtn">
-                    <button class="button-82-pushable btn-block" role="button">
-                        <span class="button-82-shadow"></span>
-                        <span class="button-82-edge"></span>
-                        <span class="button-82-front text">
-                            <a class="blue-button" href="myRewards">
-                                My Rewards
-                                <div class="speaker">🔊</div>
-                            </a>
-                        </span>
-                    </button>
+                <!-- Added the action here so that the whole button is pressable to redirect. Added the TTS on the speaker Icon which just plays the audio -->
+                    <a class="button-82-pushable btn-block" href="myRewards">
+                        <button class="button-82-pushable btn-block" role="button">
+                            <span class="button-82-shadow"></span>
+                            <span class="button-82-edge"></span>
+                            <span class="button-82-front text">
+                                    My Rewards
+                                    <div class="speaker" onclick="speakText('My Rewards')">🔊</div>
+                            </span>
+                        </button>
+                    </a>
                 </div>
             </div>             
             <div class="streak">

@@ -176,10 +176,12 @@ a:hover, a:visited {
     align-items: center;
     justify-content: center;
 }
-
+    /* Changed the font size and bolded the words to have it easier to read*/
 @media (min-width: 768px) {
     .button-82-front {
-        font-size: 1.5rem; /* Larger font size for larger screens */
+        font-size: 3.5rem; /* Larger font size for larger screens */
+        font-weight: bolder;
+        justify-content: center;
         padding: 12px 42px;
     }
 }
