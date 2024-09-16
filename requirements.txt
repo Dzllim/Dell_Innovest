@@ -12,3 +12,4 @@ six
 Werkzeug
 WTForms==2.3.3
 email_validator
+gtts
