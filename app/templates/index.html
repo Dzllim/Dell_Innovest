@@ -28,7 +28,7 @@
             }
         }
     </script>
-
+    
 </head>
 <body>
 
@@ -42,79 +42,123 @@
                     </a>
                 </div>
                 <div id="change-lang">
-                    <button class="button-82-pushable" role="button">
+                    <button class="button-82-pushable" role="button" onclick="changeLanguage()">
                         <span class="button-82-shadow"></span>
                         <span class="button-82-edge"></span>
-                        <span class="button-82-front text" style="height: 60px;">
+                        <span class="button-82-front text" data-translate="lang-switch">
                             ENG / 中文
                         </span>
                     </button>
                 </div>
             </div>
             {% block content %}
-            <div class="row">
-                <div class="col-xl-6 col-md-12 col-sm-12 p-2">
-                    <!-- Added the action here so that the whole button is pressable to redirect. Added the TTS on the speaker Icon which just plays the audio -->
+            <div class="row btn-grp">
+                <div class="col-sm-6 indexbtn">
                     <a class="button-82-pushable btn-block" href="instructions">
-                        <button class="button-82-pushable btn-block" role ="button">
+                        <button class="button-82-pushable btn-block" role="button">
                             <span class="button-82-shadow"></span>
                             <span class="button-82-edge"></span>
                             <span class="button-82-front text">
-                                Scan
+                                <span data-translate="scan">Scan</span>
                                 <div class="speaker" onclick="speakText('Scan')">🔊</div>
                             </span>
                         </button>
                     </a>
                 </div>
-                <div class="col-xl-6 col-md-12 col-sm-12 p-2">
-                    <!-- Added the action here so that the whole button is pressable to redirect. Added the TTS on the speaker Icon which just plays the audio -->
+                <div class="col-sm-6 indexbtn">
                     <a class="button-82-pushable btn-block" href="dailyTasks">
                         <button class="button-82-pushable btn-block" role="button">
                             <span class="button-82-shadow"></span>
                             <span class="button-82-edge"></span>
                             <span class="button-82-front text">
-                                    Daily Tasks
-                                    <div class="speaker" onclick="speakText('Daily Tasks')">🔊</div>
+                                <span data-translate="daily-tasks">Daily Tasks</span>
+                                <div class="speaker" onclick="speakText('Daily Tasks')">🔊</div>
                             </span>
                         </button>
                     </a>
                 </div>
-                <div class="col-xl-6 col-md-12 col-sm-12 p-2">
-                    <!-- Added the action here so that the whole button is pressable to redirect. Added the TTS on the speaker Icon which just plays the audio -->
+            </div>
+            <div class="row btn-grp">
+                <div class="col-sm-6 indexbtn">
                     <a class="button-82-pushable btn-block" href="leaderboard">
                         <button class="button-82-pushable btn-block" role="button">
                             <span class="button-82-shadow"></span>
                             <span class="button-82-edge"></span>
                             <span class="button-82-front text">
-                                    Leaderboard
-                                    <div class="speaker" onclick="speakText('Leaderboard')">🔊</div>
+                                <span data-translate="leaderboard">Leaderboard</span>
+                                <div class="speaker" onclick="speakText('Leaderboard')">🔊</div>
                             </span>
                         </button>
                     </a>
                 </div>
-                <div class="col-xl-6 col-md-12 col-sm-12 p-2">
-                <!-- Added the action here so that the whole button is pressable to redirect. Added the TTS on the speaker Icon which just plays the audio -->
+                <div class="col-sm-6 indexbtn">
                     <a class="button-82-pushable btn-block" href="myRewards">
                         <button class="button-82-pushable btn-block" role="button">
                             <span class="button-82-shadow"></span>
                             <span class="button-82-edge"></span>
                             <span class="button-82-front text">
-                                    My Rewards
-                                    <div class="speaker" onclick="speakText('My Rewards')">🔊</div>
+                                <span data-translate="my-rewards">My Rewards</span>
+                                <div class="speaker" onclick="speakText('My Rewards')">🔊</div>
                             </span>
                         </button>
                     </a>
                 </div>
-            </div>  
+            </div>             
             <div class="streak">
                 <div class="fire">🔥</div>
                 Day {{my_days}} <!-- this is a placeholder -->
-            </div>              
+            </div> 
             {% endblock %}
             </div> 
         </div>
     </div>      
 </div>
+
+<!-- Inline JavaScript for translations -->
+<script>
+// Initial language state (default is English or saved language)
+let currentLang = localStorage.getItem('lang') || 'en';
+
+const translations = {
+  en: {
+    "lang-switch": "ENG / 中文",
+    "scan": "Scan",
+    "daily-tasks": "Daily Tasks",
+    "leaderboard": "Leaderboard",
+    "my-rewards": "My Rewards"
+  },
+  zh: {
+    "lang-switch": "中文 / ENG",
+    "scan": "扫描",
+    "daily-tasks": "日常任务",
+    "leaderboard": "排行榜",
+    "my-rewards": "我的奖励"
+  }
+};
+
+function applyLanguage(lang) {
+  document.querySelectorAll("[data-translate]").forEach((element) => {
+    const key = element.getAttribute("data-translate");
+    element.textContent = translations[lang][key];
+  });
+}
+
+function changeLanguage() {
+  // Toggle the language
+  currentLang = currentLang === 'en' ? 'zh' : 'en';
+  
+  // Store the selected language in localStorage
+  localStorage.setItem('lang', currentLang);
+  
+  // Apply the language changes
+  applyLanguage(currentLang);
+}
+
+// Apply the language based on the stored preference when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+  applyLanguage(currentLang);
+});
+</script>
 
 </body>
 </html>
