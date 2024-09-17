@@ -50,4 +50,12 @@
         </div>
     </div>
 </div>
+<div>
+    <button id="returnButton" class="rtrhome-button btn btn-primary">Return to Home</button>
+    <script>
+        document.getElementById('returnButton').addEventListener('click', function() {
+            window.location.href = '/'; // goes back to home
+        });
+    </script>
+</div>
 {% endblock %}

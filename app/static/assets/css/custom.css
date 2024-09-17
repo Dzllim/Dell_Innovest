@@ -88,7 +88,7 @@ a:hover, a:visited {
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 24px; /* Larger font size */
+    font-size: 100%; /* Larger font size */
     cursor: pointer;
 }
 
@@ -186,31 +186,52 @@ a:hover, a:visited {
     }
 }
 
+
 .button-82-pushable:hover {
     filter: brightness(110%);
     -webkit-filter: brightness(110%);
 }
 
+
 .button-82-pushable:hover .button-82-front {
     transform: translateY(-6px);
-    transition:
-        transform
-        250ms
-        cubic-bezier(.3, .7, .4, 1.5);
+    transition: transform 250ms cubic-bezier(.3, .7, .4, 1.5), 
+                background-color 250ms ease-in-out, 
+                color 250ms ease-in-out;
+    background-color: #15a376; /* New background color */
+    color: #ffffff; /* Change text color */
 }
+
 
 .button-82-pushable:active .button-82-front {
     transform: translateY(-2px);
     transition: transform 34ms;
 }
 
+.button-82-pushable:hover .button-82-edge {
+    transform: translateY(-6px);
+    transition: transform 250ms cubic-bezier(.3, .7, .4, 1.5), 
+                background-color 250ms ease-in-out, 
+                color 250ms ease-in-out;
+    background-color: #15a376; /* New background color */
+    color: #ffffff; /* Change text color */
+}
+
+
+.button-82-pushable:active .button-82-edge {
+    transform: translateY(-2px);
+    transition: transform 34ms;
+}
+
 .button-82-pushable:hover .button-82-shadow {
     transform: translateY(4px);
-    transition:
-        transform
-        250ms
-        cubic-bezier(.3, .7, .4, 1.5);
+    transition: transform 250ms cubic-bezier(.3, .7, .4, 1.5),
+                background-color 250ms ease-in-out, 
+                color 250ms ease-in-out;
+    background-color: #0f5e45; /* New background color */
+    color: #ffffff; /* Change text color */
 }
+
 
 .button-82-pushable:active .button-82-shadow {
     transform: translateY(1px);
@@ -246,4 +267,39 @@ a:hover, a:visited {
 .top-3-score {
     font-size: 1.1em;
     color: #333;
+}
+
+/* Align the main icons on the left */
+.icon-spacing {
+    margin-right: 100px; /* Adjusts space between the icon and text */
+    margin-left: 1px;  /* Adds space between left edge and icon */
+    vertical-align: middle;
+    float: left;
+}
+
+/* Add custom vertical alignment */
+.icon-adjust {
+    position: absolute;
+    top: 50%; /* Adjust for vertical position */
+    left: 100px; /* Adjust for horizontal position */
+    transform: translateY(-50%);
+}
+
+.icon-color {
+    color: #ff6600; /* color of icon*/
+}
+
+.icon-color:hover {
+    color: #178e84; /* Change color on hover */
+}
+
+/* Button styling for non-flexbox parent */
+.rtrhome-button {
+    position: relative;
+    bottom: 5px;
+    width: 25%;
+    margin: 0 auto; /* Centers the button horizontally */
+    text-align: center; /* Centers the text inside the button */
+    font-size: 1.5rem;
+    color: white;
 }
