@@ -29,9 +29,11 @@ def instructions():
 @app.route('/dailyTasks')
 def task():
     return render_template('dailyTasks.html')
+
 @app.route('/upload')
 def upload():
     return render_template('upload.html')
+
 @app.route('/leaderboard')
 def leaderboard():
     # Example leaderboard data (this could come from a database)

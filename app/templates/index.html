@@ -19,22 +19,22 @@
     <script>
         // Function to speak text based on the current language
         function speakText(element) {
-        event.preventDefault();
-        event.stopPropagation();
-        const text = element.textContent.trim(); // Get the text content from the clicked button
-        if ('speechSynthesis' in window) {
-            var utterance = new SpeechSynthesisUtterance(text);
-            // Select the appropriate language voice based on the current language
-            if (currentLang === 'zh') {
-                utterance.lang = 'zh-CN'; // Set voice to Chinese
+            event.preventDefault();
+            event.stopPropagation();
+            const text = element.textContent.trim(); // Get the text content from the clicked button
+            if ('speechSynthesis' in window) {
+                var utterance = new SpeechSynthesisUtterance(text);
+                // Select the appropriate language voice based on the current language
+                if (currentLang === 'zh') {
+                    utterance.lang = 'zh-CN'; // Set voice to Chinese
+                } else {
+                    utterance.lang = 'en-US'; // Set voice to English
+                }
+                window.speechSynthesis.speak(utterance);
             } else {
-                utterance.lang = 'en-US'; // Set voice to English
+                alert('Your browser does not support speech synthesis.');
             }
-            window.speechSynthesis.speak(utterance);
-        } else {
-            alert('Your browser does not support speech synthesis.');
         }
-    }
 
         // Ensure voices are loaded (some browsers load them asynchronously)
         window.speechSynthesis.onvoiceschanged = function() {
@@ -42,6 +42,26 @@
             getVoiceForLanguage(localStorage.getItem('lang') || 'en');
         };
     </script>
+
+    <style>
+        /* Centering the day container and ensuring day number and label are on the same line */
+        .day-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem; /* Adjust size as needed */
+        }
+        .day-container .fire {
+            margin-right: 10px; /* Add space between fire and the text */
+        }
+        .day-container span {
+            margin-left: 5px;
+        }
+        .streak {
+            text-align: center; /* Center the container itself */
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
 
@@ -123,9 +143,13 @@
                 </div>
             </div>             
             <div class="streak">
-                <div class="fire">🔥</div>
-                Day {{my_days}} <!-- this is a placeholder -->
-            </div> 
+                <div class="day-container">
+                    <div class="fire">🔥</div>
+                    <!-- Updated section for day translation -->
+                    <span id="day-number">{{ my_days }}</span>
+                    <span id="day-label" data-translate="day-label">Day</span> <!-- This will translate "Day" or "Days" based on the number -->
+                </div> 
+            </div>
             {% endblock %}
             </div> 
         </div>
@@ -143,36 +167,49 @@ const translations = {
     "scan": "Scan",
     "daily-tasks": "Daily Tasks",
     "leaderboard": "Leaderboard",
-    "my-rewards": "My Rewards"
+    "my-rewards": "My Rewards",
+    "day-label": "Day"  // For singular "Day"
   },
   zh: {
     "lang-switch": "中文 / ENG",
     "scan": "扫描",
     "daily-tasks": "日常任务",
     "leaderboard": "排行榜",
-    "my-rewards": "我的奖励"
+    "my-rewards": "我的奖励",
+    "day-label": "天"  // "天" for all days in Chinese
   }
 };
 
 function applyLanguage(lang) {
+  // Apply translations to all static text
   document.querySelectorAll("[data-translate]").forEach((element) => {
     const key = element.getAttribute("data-translate");
     element.textContent = translations[lang][key];
   });
+
+  // Special handling for day number and translation of "Day" or "天"
+  const dayNumber = document.getElementById('day-number').textContent.trim();  // Get day number
+
+  // Apply logic for pluralization in English or "天" for Chinese
+  if (lang === 'en') {
+    document.querySelector('#day-label').textContent = dayNumber > 1 ? "Days" : "Day";
+  } else {
+    document.querySelector('#day-label').textContent = "天";  // In Chinese, always use "天"
+  }
 }
 
 function changeLanguage() {
-  // Toggle the language
+  // Toggle between 'en' and 'zh'
   currentLang = currentLang === 'en' ? 'zh' : 'en';
   
-  // Store the selected language in localStorage
+  // Save language preference in localStorage
   localStorage.setItem('lang', currentLang);
   
-  // Apply the language changes
+  // Apply language changes
   applyLanguage(currentLang);
 }
 
-// Apply the language based on the stored preference when the page loads
+// Apply the language on page load
 document.addEventListener('DOMContentLoaded', () => {
   applyLanguage(currentLang);
 });
