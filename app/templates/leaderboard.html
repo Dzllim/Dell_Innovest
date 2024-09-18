@@ -1,9 +1,8 @@
 {% extends "index.html" %}
 
 {% block title %}
-    {{my_title | default("Daily Challenges")}}
+    {{my_title | default("Leaderboard")}}
 {% endblock %}
-
 {% block lang %}
 <div id="change-lang">
     <button class="button-82-pushable" role="button" onclick="changeLanguage()">
@@ -15,96 +14,50 @@
     </button>
 </div>
 {% endblock %}
-
 {% block content %}
-
-<div class="row heading-container">
-    <div class="col-sm-12">
-        <h1 class="text-center">Daily Tasks</h1>
+<div class="top-3-container"></div>
+<div class="col-sm-12 text-center">
+    <h1 class="my-4" style="color: #004de6;">Top 3</h1>
+    <div class="row justify-content-center">
+        {% for participant in top_3 %}
+        <div class="top-3-profile">
+            <img src="../static/assets/img/{{ participant.img }}" alt="{{ participant.name }}'s Profile Picture">
+            <div class="top-3-name">{{ participant.name }}</div>
+            <div class="top-3-score">{{ participant.score }} pts</div>
+        </div>
+        {% endfor %}
+        </div>
+</div>
+<div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h1 class="my-4" style="color: #004de6;">Leaderboard</h1>
+            </div>
+        </div>
+    
+        <div class="row justify-content-center">
+            <div class="col-sm-10">
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Rank</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for entry in leaderboard %}
+                        <tr>
+                            <th scope="row">{{ entry.rank }}</th>
+                            <td>{{ entry.name }}</td>
+                            <td>{{ entry.score }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
-
-<div class="row">
-    <!-- Easy Tasks Card -->
-    <div class="col-sm-12 mb-3">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Easy Tasks</h5>
-                <div class="task-card">
-                    <h6 class="task-title">Stretching Routine</h6>
-                    <p>Record yourself doing a 5-minute stretching routine focusing on arms, legs, and neck.</p>
-                    <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">Do it Now To Earn 10 Points</button>
-                </div>
-                <div class="task-card">
-                    <h6 class="task-title">Breathing Exercises</h6>
-                    <p>Record a 5-minute session of deep breathing exercises to promote relaxation.</p>
-                    <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">Do it Now To Earn 10 Points</button>
-                </div>
-                <div class="task-card">
-                    <h6 class="task-title">Walking in Place</h6>
-                    <p>Record yourself walking in place for 10 minutes.</p>
-                    <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">Do it Now To Earn 10 Points</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Medium Tasks Card -->
-    <div class="col-sm-12 mb-3">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Medium Tasks (Requires Teaming Up)</h5>
-                <div class="task-card">
-                    <h6 class="task-title">Partner Chair Exercises</h6>
-                    <p>Record a session with another senior where you both do a series of chair exercises (e.g., seated leg lifts, seated marches).</p>
-                    <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">Do it Now To Earn 15 Points</button>
-                </div>
-                <div class="task-card">
-                    <h6 class="task-title">Interactive Storytelling</h6>
-                    <p>Record a video chat where you and another senior take turns sharing a story or a memory.</p>
-                    <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">Do it Now To Earn 15 Points</button>
-                </div>
-                <div class="task-card">
-                    <h6 class="task-title">Simple Dance Routine</h6>
-                    <p>Record a short dance routine with another senior, focusing on simple steps.</p>
-                    <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">Do it Now To Earn 15 Points</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Hard Tasks Card -->
-    <div class="col-sm-12 mb-3">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Hard Tasks (Requires Teaming Up with Two Seniors)</h5>
-                <div class="task-card">
-                    <h6 class="task-title">Group Workout Challenge</h6>
-                    <p>Record a 15-minute group workout in which you and two other seniors participate (e.g., combine standing exercises, balance drills, and stretches).</p>
-                    <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">Do it Now To Earn 25 Points</button>
-                </div>
-                <div class="task-card">
-                    <h6 class="task-title">Joint Cooking</h6>
-                    <p>Take part in an online cooking session with two other elderly people to make a simple dish each.</p>
-                    <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">Do it Now To Earn 25 Points</button>
-                </div>
-                <div class="task-card">
-                    <h6 class="task-title">Team Scavenger Hunt</h6>
-                    <p>Make a video of you together with two other seniors as you try to find specific items around your house or apartment for the scavenger hunt.</p>
-                    <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">Do it Now To Earn 25 Points</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-sm-12 mb-3">
-        <button id="returnButton" class="rtrhome-button btn btn-primary">Return to Home</button>
-        <script>
-            document.getElementById('returnButton').addEventListener('click', function() {
-                window.location.href = '/'; // goes back to home
-            });
-        </script>
-    </div>
-</div>
-    
 {% endblock %}

@@ -1,11 +1,11 @@
 {% extends "index.html" %}
 
 {% block title %}
-    {{my_title | default("Daily Challenges")}}
+    {{ my_title | default("Daily Challenges") }}
 {% endblock %}
 
 {% block lang %}
-<div id="change-lang">
+<div id="change-lang" class="text-center mb-3">
     <button class="button-82-pushable" role="button" onclick="changeLanguage()">
         <span class="button-82-shadow"></span>
         <span class="button-82-edge"></span>
@@ -18,93 +18,208 @@
 
 {% block content %}
 
-<div class="row heading-container">
-    <div class="col-sm-12">
-        <h1 class="text-center">Daily Tasks</h1>
+<div class="container">
+    <div class="row heading-container">
+        <div class="col-sm-12">
+            <h1 class="text-center" data-translate="title">Daily Tasks</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Easy Tasks Card -->
+        <div class="col-sm-12 mb-3">
+            <div class="card easy-task-card">
+                <div class="card-body">
+                    <h5 class="card-title" data-translate="easy-tasks-title">Easy Tasks</h5>
+                    <div class="task-card">
+                        <h6 class="task-title" data-translate="task-1-title">Stretching Routine</h6>
+                        <p data-translate="task-1-desc">Record yourself doing a 5-minute stretching routine focusing on arms, legs, and neck.</p>
+                        <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">
+                            <span data-translate="task-1-btn">Do it Now To Earn 10 Points</span>
+                        </button>
+                        <!-- TTS Icon -->
+                        <button class="btn btn-link p-0" onclick="speakTask('task-1-desc')">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                    </div>
+                    <div class="task-card">
+                        <h6 class="task-title" data-translate="task-2-title">Breathing Exercises</h6>
+                        <p data-translate="task-2-desc">Record a 5-minute session of deep breathing exercises to promote relaxation.</p>
+                        <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">
+                            <span data-translate="task-2-btn">Do it Now To Earn 10 Points</span>
+                        </button>
+                        <!-- TTS Icon -->
+                        <button class="btn btn-link p-0" onclick="speakTask('task-2-desc')">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                    </div>
+                    <div class="task-card">
+                        <h6 class="task-title" data-translate="task-3-title">Walking in Place</h6>
+                        <p data-translate="task-3-desc">Record yourself walking in place for 10 minutes.</p>
+                        <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">
+                            <span data-translate="task-3-btn">Do it Now To Earn 10 Points</span>
+                        </button>
+                        <!-- TTS Icon -->
+                        <button class="btn btn-link p-0" onclick="speakTask('task-3-desc')">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Medium Tasks Card -->
+        <div class="col-sm-12 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" data-translate="medium-tasks-title">Medium Tasks (Requires Teaming Up)</h5>
+                    <div class="task-card">
+                        <h6 class="task-title" data-translate="task-4-title">Partner Chair Exercises</h6>
+                        <p data-translate="task-4-desc">Record a session with another senior where you both do a series of chair exercises (e.g., seated leg lifts, seated marches).</p>
+                        <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">
+                            <span data-translate="task-4-btn">Do it Now To Earn 15 Points</span>
+                        </button>
+                        <!-- TTS Icon -->
+                        <button class="btn btn-link p-0" onclick="speakTask('task-4-desc')">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                    </div>
+                    <div class="task-card">
+                        <h6 class="task-title" data-translate="task-5-title">Interactive Storytelling</h6>
+                        <p data-translate="task-5-desc">Record a video chat where you and another senior take turns sharing a story or a memory.</p>
+                        <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">
+                            <span data-translate="task-5-btn">Do it Now To Earn 15 Points</span>
+                        </button>
+                        <!-- TTS Icon -->
+                        <button class="btn btn-link p-0" onclick="speakTask('task-5-desc')">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hard Tasks Card -->
+        <div class="col-sm-12 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" data-translate="hard-tasks-title">Hard Tasks (Requires Teaming Up with Two Seniors)</h5>
+                    <div class="task-card">
+                        <h6 class="task-title" data-translate="task-6-title">Group Workout Challenge</h6>
+                        <p data-translate="task-6-desc">Record a 15-minute group workout in which you and two other seniors participate (e.g., combine standing exercises, balance drills, and stretches).</p>
+                        <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">
+                            <span data-translate="task-6-btn">Do it Now To Earn 25 Points</span>
+                        </button>
+                        <!-- TTS Icon -->
+                        <button class="btn btn-link p-0" onclick="speakTask('task-6-desc')">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                    </div>
+                    <div class="task-card">
+                        <h6 class="task-title" data-translate="task-7-title">Joint Cooking</h6>
+                        <p data-translate="task-7-desc">Take part in an online cooking session with two other elderly people to make a simple dish each.</p>
+                        <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">
+                            <span data-translate="task-7-btn">Do it Now To Earn 25 Points</span>
+                        </button>
+                        <!-- TTS Icon -->
+                        <button class="btn btn-link p-0" onclick="speakTask('task-7-desc')">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-sm-12 mb-3">
+            <button id="returnButton" class="rtrhome-button btn btn-primary">Return to Home</button>
+            <script>
+                document.getElementById('returnButton').addEventListener('click', function() {
+                    window.location.href = '/'; // goes back to home
+                });
+            </script>
+        </div>
     </div>
 </div>
+<script>
+    function speakTask(taskId) {
+        const taskText = document.querySelector(`[data-translate="${taskId}"]`).textContent;
+        const utterance = new SpeechSynthesisUtterance(taskText);
+        utterance.lang = currentLang === 'zh' ? 'zh-CN' : 'en-US';
+        window.speechSynthesis.speak(utterance);
+    }
 
-<div class="row">
-    <!-- Easy Tasks Card -->
-    <div class="col-sm-12 mb-3">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Easy Tasks</h5>
-                <div class="task-card">
-                    <h6 class="task-title">Stretching Routine</h6>
-                    <p>Record yourself doing a 5-minute stretching routine focusing on arms, legs, and neck.</p>
-                    <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">Do it Now To Earn 10 Points</button>
-                </div>
-                <div class="task-card">
-                    <h6 class="task-title">Breathing Exercises</h6>
-                    <p>Record a 5-minute session of deep breathing exercises to promote relaxation.</p>
-                    <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">Do it Now To Earn 10 Points</button>
-                </div>
-                <div class="task-card">
-                    <h6 class="task-title">Walking in Place</h6>
-                    <p>Record yourself walking in place for 10 minutes.</p>
-                    <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">Do it Now To Earn 10 Points</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    // Handling Language Change and Translation
+    let currentLang = localStorage.getItem('lang') || 'en';
+    const translations = {
+        en: {
+            "title": "Daily Tasks",
+            "easy-tasks-title": "Easy Tasks",
+            "task-1-title": "Stretching Routine",
+            "task-1-desc": "Record yourself doing a 5-minute stretching routine focusing on arms, legs, and neck.",
+            "task-1-btn": "Do it Now To Earn 10 Points",
+            "task-2-title": "Breathing Exercises",
+            "task-2-desc": "Record a 5-minute session of deep breathing exercises to promote relaxation.",
+            "task-2-btn": "Do it Now To Earn 10 Points",
+            "task-3-title": "Walking in Place",
+            "task-3-desc": "Record yourself walking in place for 10 minutes.",
+            "task-3-btn": "Do it Now To Earn 10 Points",
+            "medium-tasks-title": "Medium Tasks (Requires Teaming Up)",
+            "task-4-title": "Partner Chair Exercises",
+            "task-4-desc": "Record a session with another senior where you both do a series of chair exercises (e.g., seated leg lifts, seated marches).",
+            "task-4-btn": "Do it Now To Earn 15 Points",
+            "task-5-title": "Interactive Storytelling",
+            "task-5-desc": "Record a video chat where you and another senior take turns sharing a story or a memory.",
+            "task-5-btn": "Do it Now To Earn 15 Points",
+            "hard-tasks-title": "Hard Tasks (Requires Teaming Up with Two Seniors)",
+            "task-6-title": "Group Workout Challenge",
+            "task-6-desc": "Record a 15-minute group workout in which you and two other seniors participate (e.g., combine standing exercises, balance drills, and stretches).",
+            "task-6-btn": "Do it Now To Earn 25 Points",
+            "task-7-title": "Joint Cooking",
+            "task-7-desc": "Take part in an online cooking session with two other elderly people to make a simple dish each.",
+            "task-7-btn": "Do it Now To Earn 25 Points",
+            "lang-switch": "ENG / 中文"
+        },
+        zh: {
+            "title": "每日任务",
+            "easy-tasks-title": "简单任务",
+            "task-1-title": "拉伸例程",
+            "task-1-desc": "录制自己做5分钟的拉伸例程，重点是手臂、腿部和脖子。",
+            "task-1-btn": "现在完成赚取10积分",
+            "task-2-title": "呼吸练习",
+            "task-2-desc": "录制5分钟的深呼吸练习，以促进放松。",
+            "task-2-btn": "现在完成赚取10积分",
+            "task-3-title": "原地走",
+            "task-3-desc": "录制自己原地走10分钟。",
+            "task-3-btn": "现在完成赚取10积分",
+            "medium-tasks-title": "中等任务（需要组队）",
+            "task-4-title": "搭档椅子练习",
+            "task-4-desc": "录制与另一位老人一起做一系列椅子练习的课程（例如，坐姿腿部抬起、坐姿行走）。",
+            "task-4-btn": "现在完成赚取15积分",
+            "task-5-title": "互动讲故事",
+            "task-5-desc": "录制视频聊天，您和另一位老人轮流讲述故事或回忆。",
+            "task-5-btn": "现在完成赚取15积分",
+            "hard-tasks-title": "困难任务（需要与两位老人组队）",
+            "task-6-title": "团体锻炼挑战",
+            "task-6-desc": "录制15分钟的团体锻炼，您和另外两位老人一起参与（例如，结合站立练习、平衡训练和拉伸）。",
+            "task-6-btn": "现在完成赚取25积分",
+            "task-7-title": "联合烹饪",
+            "task-7-desc": "与另外两位老人一起参加在线烹饪课程，制作简单的菜肴。",
+            "task-7-btn": "现在完成赚取25积分",
+            "lang-switch": "ENG / 中文"
+        }
+    };
 
-    <!-- Medium Tasks Card -->
-    <div class="col-sm-12 mb-3">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Medium Tasks (Requires Teaming Up)</h5>
-                <div class="task-card">
-                    <h6 class="task-title">Partner Chair Exercises</h6>
-                    <p>Record a session with another senior where you both do a series of chair exercises (e.g., seated leg lifts, seated marches).</p>
-                    <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">Do it Now To Earn 15 Points</button>
-                </div>
-                <div class="task-card">
-                    <h6 class="task-title">Interactive Storytelling</h6>
-                    <p>Record a video chat where you and another senior take turns sharing a story or a memory.</p>
-                    <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">Do it Now To Earn 15 Points</button>
-                </div>
-                <div class="task-card">
-                    <h6 class="task-title">Simple Dance Routine</h6>
-                    <p>Record a short dance routine with another senior, focusing on simple steps.</p>
-                    <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">Do it Now To Earn 15 Points</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    function changeLanguage() {
+        currentLang = currentLang === 'en' ? 'zh' : 'en';
+        localStorage.setItem('lang', currentLang);
+        document.querySelectorAll('[data-translate]').forEach(el => {
+            el.textContent = translations[currentLang][el.getAttribute('data-translate')];
+        });
+    }
 
-    <!-- Hard Tasks Card -->
-    <div class="col-sm-12 mb-3">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Hard Tasks (Requires Teaming Up with Two Seniors)</h5>
-                <div class="task-card">
-                    <h6 class="task-title">Group Workout Challenge</h6>
-                    <p>Record a 15-minute group workout in which you and two other seniors participate (e.g., combine standing exercises, balance drills, and stretches).</p>
-                    <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">Do it Now To Earn 25 Points</button>
-                </div>
-                <div class="task-card">
-                    <h6 class="task-title">Joint Cooking</h6>
-                    <p>Take part in an online cooking session with two other elderly people to make a simple dish each.</p>
-                    <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">Do it Now To Earn 25 Points</button>
-                </div>
-                <div class="task-card">
-                    <h6 class="task-title">Team Scavenger Hunt</h6>
-                    <p>Make a video of you together with two other seniors as you try to find specific items around your house or apartment for the scavenger hunt.</p>
-                    <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">Do it Now To Earn 25 Points</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-sm-12 mb-3">
-        <button id="returnButton" class="rtrhome-button btn btn-primary">Return to Home</button>
-        <script>
-            document.getElementById('returnButton').addEventListener('click', function() {
-                window.location.href = '/'; // goes back to home
-            });
-        </script>
-    </div>
-</div>
-    
+    document.addEventListener('DOMContentLoaded', function() {
+        changeLanguage(); // Initialize with the current language
+    });
+</script>
+
 {% endblock %}
