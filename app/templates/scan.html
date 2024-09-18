@@ -65,83 +65,80 @@
 </head>
 <body>
 
-<!-- Video Container for the Camera Feed -->
-<div class="video-container">
-    <video id="camera" autoplay></video>
+    <!-- Video Container for the Camera Feed -->
+    <div class="video-container">
+        <video id="camera" autoplay></video>
+        
+        <!-- Status message (e.g., scanning in progress, scan complete) -->
+        <div id="statusMessage" class="status-message">Scanning in process...</div>
     
-    <!-- Status message (e.g., scanning in progress, scan complete) -->
-    <div id="statusMessage" class="status-message">Scanning in process...</div>
-
-    <!-- Countdown display -->
-    <div id="countdown" class="countdown">10</div>
-
-    <!-- Return to Home button -->
-    <button id="returnButton" class="return-button btn btn-primary">Return to Home</button>
-</div>
-
-<!-- JavaScript for Camera, Countdown, and Scan Status -->
-<script>
-    const videoElement = document.getElementById('camera');
-    const statusMessage = document.getElementById('statusMessage');
-    const countdownElement = document.getElementById('countdown');
-    const returnButton = document.getElementById('returnButton');
-    let countdownValue = 10; // 30-second countdown for scanning
-
-    // Function to start the countdown timer
-    function startCountdown() {
-        const countdownInterval = setInterval(() => {
-            countdownElement.textContent = countdownValue;
-            countdownValue--;
-
-            // When countdown finishes, stop camera and update the status
-            if (countdownValue < 0) {
-                clearInterval(countdownInterval);
-                countdownElement.textContent = ''; // Clear the countdown text
-                statusMessage.textContent = 'Scan complete!';
-                returnButton.style.display = 'block'; // Show the return button
-                stopCamera(); // Stop the camera feed after the scan
-            }
-        }, 1000);
-    }
-
-    // Function to access the camera
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({
-            video: {
-                width: { ideal: 1280 },
-                height: { ideal: 720 },
-                facingMode: 'environment' // Rear camera for mobile devices
-            }
-        }).then(function(stream) {
-            videoElement.srcObject = stream;
-            videoElement.play();
-            startCountdown(); // Start the countdown once the camera feed begins
-        }).catch(function(err) {
-            console.error("Error accessing the camera: ", err);
-            statusMessage.textContent = 'Camera access failed!';
+        <!-- Countdown display -->
+        <div id="countdown" class="countdown">10</div>
+    
+        <!-- Return to Home button -->
+        <button id="returnButton" class="return-button btn btn-primary">Return to Home</button>
+    </div>
+    
+    <!-- JavaScript for Camera, Countdown, and Scan Status -->
+    <script>
+        const videoElement = document.getElementById('camera');
+        const statusMessage = document.getElementById('statusMessage');
+        const countdownElement = document.getElementById('countdown');
+        const returnButton = document.getElementById('returnButton');
+        let countdownValue = 10;
+    
+        function startCountdown() {
+            const countdownInterval = setInterval(() => {
+                countdownElement.textContent = countdownValue;
+                countdownValue--;
+    
+                if (countdownValue < 0) {
+                    clearInterval(countdownInterval);
+                    countdownElement.textContent = '';
+                    statusMessage.textContent = 'Scan complete!';
+                    returnButton.style.display = 'block';
+                    stopCamera();
+                }
+            }, 1000);
+        }
+    
+        function stopCamera() {
+            const stream = videoElement.srcObject;
+            const tracks = stream.getTracks();
+            tracks.forEach(track => track.stop());
+            videoElement.srcObject = null;
+        }
+    
+        // Check if the device supports camera access
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({
+                video: {
+                    width: { ideal: 1280 },
+                    height: { ideal: 720 },
+                    facingMode: 'environment' // Rear camera for mobile
+                }
+            }).then(function(stream) {
+                videoElement.srcObject = stream;
+                videoElement.play();
+                startCountdown();
+            }).catch(function(err) {
+                console.error("Error accessing the camera: ", err);
+                if (err.name === 'NotAllowedError') {
+                    statusMessage.textContent = 'Camera access denied. Please enable it in your browser settings.';
+                } else if (err.name === 'NotFoundError') {
+                    statusMessage.textContent = 'No camera found on this device.';
+                } else {
+                    statusMessage.textContent = 'Camera access failed!';
+                }
+            });
+        } else {
+            statusMessage.textContent = 'Camera not supported on this device.';
+        }
+    
+        returnButton.addEventListener('click', () => {
+            window.location.href = '/'; // Return to home
         });
-    } else {
-        alert('Camera not supported on this device.');
-        statusMessage.textContent = 'Camera not supported on this device.';
-    }
-
-    // Function to stop the camera feed after scanning completes
-    function stopCamera() {
-        const stream = videoElement.srcObject;
-        const tracks = stream.getTracks();
-
-        tracks.forEach(track => {
-            track.stop(); // Stop each track
-        });
-
-        videoElement.srcObject = null; // Clear the video feed
-    }
-
-    // Event listener for the return button
-    returnButton.addEventListener('click', () => {
-        window.location.href = '/'; // Redirect to the home page
-    });
-</script>
-
-</body>
+    </script>
+    
+    </body>
 </html>
