@@ -3,7 +3,17 @@
 {% block title %}
     {{my_title | default("Daily Challenges")}}
 {% endblock %}
-
+{% block lang %}
+<div id="change-lang">
+    <button class="button-82-pushable" role="button" onclick="changeLanguage()">
+        <span class="button-82-shadow"></span>
+        <span class="button-82-edge"></span>
+        <span class="button-82-front-v2 text" data-translate="lang-switch">
+            ENG / 中文
+        </span>
+    </button>
+</div>
+{% endblock %}
 {% block content %}
 
 <div class="row heading-container">

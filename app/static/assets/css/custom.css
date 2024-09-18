@@ -34,6 +34,7 @@ a:hover, a:visited {
     width: auto; /* Ensure it doesn't behave like a larger button */
 }
 
+   
 /* Logo styling */
 .logo {
     padding-left: 20px;
@@ -176,6 +177,25 @@ a:hover, a:visited {
     align-items: center;
     justify-content: center;
 }
+.button-82-front-v2 {
+    display: block;
+    position: relative;
+    padding: 12px 27px;
+    border-radius: 12px;
+    font-size: 0.8rem; /* Increased font size for buttons */
+    color: white;
+    background: #004de6;
+    will-change: transform;
+    transform: translateY(-4px);
+    transition:
+        transform
+        600ms
+        cubic-bezier(.3, .7, .4, 1);
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
     /* Changed the font size and bolded the words to have it easier to read*/
 @media (min-width: 768px) {
     .button-82-front {
@@ -193,7 +213,7 @@ a:hover, a:visited {
 }
 
 
-.button-82-pushable:hover .button-82-front {
+.button-82-pushable:hover .button-82-front{
     transform: translateY(-6px);
     transition: transform 250ms cubic-bezier(.3, .7, .4, 1.5), 
                 background-color 250ms ease-in-out, 
@@ -202,6 +222,14 @@ a:hover, a:visited {
     color: #ffffff; /* Change text color */
 }
 
+.button-82-pushable:hover .button-82-front-v2{
+    transform: translateY(-6px);
+    transition: transform 250ms cubic-bezier(.3, .7, .4, 1.5), 
+    background-color 250ms ease-in-out, 
+    color 250ms ease-in-out;
+    background-color: #15a376; /* New background color */
+    color: #ffffff; /* Change text color */
+}
 
 .button-82-pushable:active .button-82-front {
     transform: translateY(-2px);

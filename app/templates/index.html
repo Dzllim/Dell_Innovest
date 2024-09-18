@@ -18,18 +18,32 @@
 
     <!-- This is for the TTS for the speaker buttons -->
     <script> 
-        function speakText(text) {
-            event.preventDefault();
-            event.stopPropagation();
-            if ('speechSynthesis' in window) {
-                var utterance = new SpeechSynthesisUtterance(text);
-                window.speechSynthesis.speak(utterance);
+
+        // Function to speak text based on the current language
+        function speakText(element) {
+        event.preventDefault();
+        event.stopPropagation();
+        const text = element.textContent.trim(); // Get the text content from the clicked button
+        if ('speechSynthesis' in window) {
+            var utterance = new SpeechSynthesisUtterance(text);
+            // Select the appropriate language voice based on the current language
+            if (currentLang === 'zh') {
+                utterance.lang = 'zh-CN'; // Set voice to Chinese
             } else {
-                alert('Your browser does not support speech synthesis.');
+                utterance.lang = 'en-US'; // Set voice to English
             }
+            window.speechSynthesis.speak(utterance);
+        } else {
+            alert('Your browser does not support speech synthesis.');
         }
+    }
+
+        // Ensure voices are loaded (some browsers load them asynchronously)
+        window.speechSynthesis.onvoiceschanged = function() {
+            // Preload voices to avoid delays when speaking
+            getVoiceForLanguage(localStorage.getItem('lang') || 'en');
+        };
     </script>
-    
 </head>
 <body>
 
@@ -42,6 +56,7 @@
                         <img src="../static/assets/img/logo.png" width="150">
                     </a>
                 </div>
+                {% block lang %}
                 <div id="change-lang">
                     <button class="button-82-pushable" role="button" onclick="changeLanguage()">
                         <span class="button-82-shadow"></span>
@@ -51,6 +66,7 @@
                         </span>
                     </button>
                 </div>
+                {% endblock %}
             </div>
             {% block content %}
             <br><br>
@@ -63,7 +79,7 @@
                             <span class="button-82-front text">
                                 <i class="fa fa-heartbeat icon-adjust icon-spacing" aria-hidden="true"></i>
                                 <span data-translate="scan">Scan</span>
-                                <div class="speaker" onclick="speakText('Scan')">🔊</div>
+                                <div class="speaker" onclick="speakText(this)">🔊</div>
                             </span>
                         </button>
                     </a>
@@ -76,7 +92,7 @@
                             <span class="button-82-front text">
                                 <i class="fas fa-list-check icon-adjust icon-spacing"></i>
                                 <span data-translate="daily-tasks">Daily Tasks</span>
-                                <div class="speaker" onclick="speakText('Daily Tasks')">🔊</div>
+                                <div class="speaker" onclick="speakText(this)">🔊</div>
                             </span>
                         </button>
                     </a>
@@ -89,7 +105,7 @@
                             <span class="button-82-front text">
                                 <i class="fa fa-trophy icon-adjust icon-spacing" aria-hidden="true"></i>
                                 <span data-translate="leaderboard">Leaderboard</span>
-                                <div class="speaker" onclick="speakText('Leaderboard')">🔊</div>
+                                <div class="speaker" onclick="speakText(this)">🔊</div>
                             </span>
                         </button>
                     </a>
@@ -102,7 +118,7 @@
                             <span class="button-82-front text">
                                 <i class="fa fa-gift icon-adjust icon-spacing" aria-hidden="true"></i>
                                 <span data-translate="my-rewards">My Rewards</span>
-                                <div class="speaker" onclick="speakText('My Rewards')">🔊</div>
+                                <div class="speaker" onclick="speakText(this)">🔊</div>
                             </span>
                         </button>
                     </a>
