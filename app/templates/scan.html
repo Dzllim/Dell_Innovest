@@ -115,7 +115,7 @@
                 video: {
                     width: { ideal: 1280 },
                     height: { ideal: 720 },
-                    facingMode: 'environment' // Rear camera for mobile
+                    facingMode: 'user' // Front camera for iOS
                 }
             }).then(function(stream) {
                 videoElement.srcObject = stream;
