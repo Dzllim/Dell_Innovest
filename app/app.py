@@ -29,7 +29,9 @@ def instructions():
 @app.route('/dailyTasks')
 def task():
     return render_template('dailyTasks.html')
-
+@app.route('/upload')
+def upload():
+    return render_template('upload.html')
 @app.route('/leaderboard')
 def leaderboard():
     # Example leaderboard data (this could come from a database)
@@ -57,4 +59,4 @@ def submit():
     return redirect(url_for('home'))
 
 if __name__ == '__main__':
-    app.run(port=8080, host="0.0.0.0")
+    app.run(port=8080, host="0.0.0.0", debug=True)

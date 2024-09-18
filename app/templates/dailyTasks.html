@@ -3,6 +3,7 @@
 {% block title %}
     {{my_title | default("Daily Challenges")}}
 {% endblock %}
+
 {% block lang %}
 <div id="change-lang">
     <button class="button-82-pushable" role="button" onclick="changeLanguage()">
@@ -14,6 +15,7 @@
     </button>
 </div>
 {% endblock %}
+
 {% block content %}
 
 <div class="row heading-container">
@@ -31,17 +33,17 @@
                 <div class="task-card">
                     <h6 class="task-title">Stretching Routine</h6>
                     <p>Record yourself doing a 5-minute stretching routine focusing on arms, legs, and neck.</p>
-                    <button class="btn btn-primary btn-block">Do it Now To Earn 10 Points</button>
+                    <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">Do it Now To Earn 10 Points</button>
                 </div>
                 <div class="task-card">
                     <h6 class="task-title">Breathing Exercises</h6>
                     <p>Record a 5-minute session of deep breathing exercises to promote relaxation.</p>
-                    <button class="btn btn-primary btn-block">Do it Now To Earn 10 Points</button>
+                    <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">Do it Now To Earn 10 Points</button>
                 </div>
                 <div class="task-card">
                     <h6 class="task-title">Walking in Place</h6>
                     <p>Record yourself walking in place for 10 minutes.</p>
-                    <button class="btn btn-primary btn-block">Do it Now To Earn 10 Points</button>
+                    <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">Do it Now To Earn 10 Points</button>
                 </div>
             </div>
         </div>
@@ -55,17 +57,17 @@
                 <div class="task-card">
                     <h6 class="task-title">Partner Chair Exercises</h6>
                     <p>Record a session with another senior where you both do a series of chair exercises (e.g., seated leg lifts, seated marches).</p>
-                    <button class="btn btn-primary btn-block">Do it Now To Earn 15 Points</button>
+                    <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">Do it Now To Earn 15 Points</button>
                 </div>
                 <div class="task-card">
                     <h6 class="task-title">Interactive Storytelling</h6>
                     <p>Record a video chat where you and another senior take turns sharing a story or a memory.</p>
-                    <button class="btn btn-primary btn-block">Do it Now To Earn 15 Points</button>
+                    <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">Do it Now To Earn 15 Points</button>
                 </div>
                 <div class="task-card">
                     <h6 class="task-title">Simple Dance Routine</h6>
                     <p>Record a short dance routine with another senior, focusing on simple steps.</p>
-                    <button class="btn btn-primary btn-block">Do it Now To Earn 15 Points</button>
+                    <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">Do it Now To Earn 15 Points</button>
                 </div>
             </div>
         </div>
@@ -79,21 +81,22 @@
                 <div class="task-card">
                     <h6 class="task-title">Group Workout Challenge</h6>
                     <p>Record a 15-minute group workout in which you and two other seniors participate (e.g., combine standing exercises, balance drills, and stretches).</p>
-                    <button class="btn btn-primary btn-block">Do it Now To Earn 25 Points</button>
+                    <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">Do it Now To Earn 25 Points</button>
                 </div>
                 <div class="task-card">
                     <h6 class="task-title">Joint Cooking</h6>
                     <p>Take part in an online cooking session with two other elderly people to make a simple dish each.</p>
-                    <button class="btn btn-primary btn-block">Do it Now To Earn 25 Points</button>
+                    <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">Do it Now To Earn 25 Points</button>
                 </div>
                 <div class="task-card">
                     <h6 class="task-title">Team Scavenger Hunt</h6>
                     <p>Make a video of you together with two other seniors as you try to find specific items around your house or apartment for the scavenger hunt.</p>
-                    <button class="btn btn-primary btn-block">Do it Now To Earn 25 Points</button>
+                    <button class="btn btn-primary btn-block" onclick="window.location.href='/upload'">Do it Now To Earn 25 Points</button>
                 </div>
             </div>
         </div>
     </div>
+    
     <div class="col-sm-12 mb-3">
         <button id="returnButton" class="rtrhome-button btn btn-primary">Return to Home</button>
         <script>

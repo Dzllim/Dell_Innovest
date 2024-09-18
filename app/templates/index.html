@@ -17,8 +17,7 @@
     {% endblock %}
 
     <!-- This is for the TTS for the speaker buttons -->
-    <script> 
-
+    <script>
         // Function to speak text based on the current language
         function speakText(element) {
         event.preventDefault();
@@ -78,8 +77,8 @@
                             <span class="button-82-edge"></span>
                             <span class="button-82-front text">
                                 <i class="fa fa-heartbeat icon-adjust icon-spacing" aria-hidden="true"></i>
-                                <span data-translate="scan">Scan</span>
-                                <div class="speaker" onclick="speakText(this)">🔊</div>
+                                <span data-translate="scan"></span>
+                                <div class="speaker" onclick="speakText(this.previousElementSibling)">🔊</div>
                             </span>
                         </button>
                     </a>
@@ -91,8 +90,8 @@
                             <span class="button-82-edge"></span>
                             <span class="button-82-front text">
                                 <i class="fas fa-list-check icon-adjust icon-spacing"></i>
-                                <span data-translate="daily-tasks">Daily Tasks</span>
-                                <div class="speaker" onclick="speakText(this)">🔊</div>
+                                <span data-translate="daily-tasks"></span>
+                                <div class="speaker" onclick="speakText(this.previousElementSibling)">🔊</div>
                             </span>
                         </button>
                     </a>
@@ -104,8 +103,8 @@
                             <span class="button-82-edge"></span>
                             <span class="button-82-front text">
                                 <i class="fa fa-trophy icon-adjust icon-spacing" aria-hidden="true"></i>
-                                <span data-translate="leaderboard">Leaderboard</span>
-                                <div class="speaker" onclick="speakText(this)">🔊</div>
+                                <span data-translate="leaderboard"></span>
+                                <div class="speaker" onclick="speakText(this.previousElementSibling)">🔊</div>
                             </span>
                         </button>
                     </a>
@@ -117,8 +116,8 @@
                             <span class="button-82-edge"></span>
                             <span class="button-82-front text">
                                 <i class="fa fa-gift icon-adjust icon-spacing" aria-hidden="true"></i>
-                                <span data-translate="my-rewards">My Rewards</span>
-                                <div class="speaker" onclick="speakText(this)">🔊</div>
+                                <span data-translate="my-rewards"></span>
+                                <div class="speaker" onclick="speakText(this.previousElementSibling)">🔊</div>
                             </span>
                         </button>
                     </a>
