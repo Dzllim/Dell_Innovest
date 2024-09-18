@@ -39,30 +39,99 @@
 </head>
 <body>
     <div class="container">
-        <h1>Instructions for Health Assessment</h1>
-        <p>Please follow the instructions below to ensure an accurate health assessment:</p>
+        <h1 data-translate="heading">Instructions for Health Assessment</h1>
+        <p data-translate="description">Please follow the instructions below to ensure an accurate health assessment:</p>
         <ul class="list-unstyled">
-            <li>Stand in a well-lit area with your feet shoulder-width apart.</li>
-            <li>Position the camera at eye level, about 3-4 feet away, to capture your full body.</li>
-            <li>Ensure you are centered in the frame with a clear background.</li>
-            <li>Stand upright with your shoulders relaxed and arms hanging naturally by your sides.</li>
-            <li>Follow any additional instructions provided.</li>
+            <li data-translate="instruction-1">Stand in a well-lit area with your feet shoulder-width apart.</li>
+            <li data-translate="instruction-2">Position the camera at eye level, about 3-4 feet away, to capture your full body.</li>
+            <li data-translate="instruction-3">Ensure you are centered in the frame with a clear background.</li>
+            <li data-translate="instruction-4">Stand upright with your shoulders relaxed and arms hanging naturally by your sides.</li>
+            <li data-translate="instruction-5">Follow any additional instructions provided.</li>
         </ul>
 
         <!-- Visual Instructions -->
         <img src="../static/assets/img/instructions.png" alt="Instructions Image" class="instructions-img">
         
-        <!-- Audio Instructions -->
-        <audio id="audioInstructions" class="audio-instructions" autoplay>
-            <source src="../static/assets/voice/instructions.mp3" type="audio/mp3">
-            Your browser does not support the audio element.
-        </audio>
+        <!-- Button for Text-to-Speech -->
+        <button class="btn btn-secondary audio-instructions" onclick="speakInstructions()">
+            <span data-translate="tts-button">🔊 Listen to Instructions</span>
+        </button>
         
         <!-- Acknowledge Consent Button -->
-        <button id="startScanBtn" class="btn btn-primary btn-start">I Understand, Start Scanning</button>
+        <button id="startScanBtn" class="btn btn-primary btn-start" data-translate="start-scan">I Understand, Start Scanning</button>
     </div>
 
     <script>
+        // Initial language state (default is English or saved language)
+        let currentLang = localStorage.getItem('lang') || 'en';
+
+        const translations = {
+            en: {
+                "heading": "Instructions for Health Assessment",
+                "description": "Please follow the instructions below to ensure an accurate health assessment:",
+                "instruction-1": "Stand in a well-lit area with your feet shoulder-width apart.",
+                "instruction-2": "Position the camera at eye level, about 3-4 feet away, to capture your full body.",
+                "instruction-3": "Ensure you are centered in the frame with a clear background.",
+                "instruction-4": "Stand upright with your shoulders relaxed and arms hanging naturally by your sides.",
+                "instruction-5": "Follow any additional instructions provided.",
+                "tts-button": "🔊 Listen to Instructions",
+                "start-scan": "I Understand, Start Scanning"
+            },
+            zh: {
+                "heading": "健康评估说明",
+                "description": "请按照以下说明操作，以确保健康评估的准确性：",
+                "instruction-1": "站在光线充足的区域，双脚与肩同宽。",
+                "instruction-2": "将相机放置在眼睛高度，距离3-4英尺以捕捉全身。",
+                "instruction-3": "确保你位于画面的中央，背景清晰。",
+                "instruction-4": "站直，肩膀放松，双臂自然垂放在身体两侧。",
+                "instruction-5": "遵循提供的其他指示。",
+                "tts-button": "🔊 听取说明",
+                "start-scan": "我明白了，开始扫描"
+            }
+        };
+
+        function applyLanguage(lang) {
+            document.querySelectorAll("[data-translate]").forEach((element) => {
+                const key = element.getAttribute("data-translate");
+                element.textContent = translations[lang][key];
+            });
+        }
+
+        function changeLanguage() {
+            // Toggle the language
+            currentLang = currentLang === 'en' ? 'zh' : 'en';
+
+            // Store the selected language in localStorage
+            localStorage.setItem('lang', currentLang);
+
+            // Apply the language changes
+            applyLanguage(currentLang);
+        }
+
+        // Apply the language based on the stored preference when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            applyLanguage(currentLang);
+        });
+
+        // Text-to-Speech function to speak the instructions
+        function speakInstructions() {
+            const instructions = [
+                translations[currentLang]["instruction-1"],
+                translations[currentLang]["instruction-2"],
+                translations[currentLang]["instruction-3"],
+                translations[currentLang]["instruction-4"],
+                translations[currentLang]["instruction-5"]
+            ].join(' '); // Concatenate all instructions
+
+            if ('speechSynthesis' in window) {
+                var utterance = new SpeechSynthesisUtterance(instructions);
+                utterance.lang = currentLang === 'zh' ? 'zh-CN' : 'en-US';
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert('Your browser does not support speech synthesis.');
+            }
+        }
+
         document.getElementById('startScanBtn').addEventListener('click', function() {
             window.location.href = '/scan'; // Redirect to the scan page
         });
