@@ -1,0 +1,28 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+.container {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto; /* Center the container horizontally */
+}
+.instructions-img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+.audio-instructions, .btn-start {
+    display: block;
+    margin: 0 auto; /* Center elements horizontally */
+}
+.audio-instructions {
+    margin-bottom: 20px;
+}
+.btn-start {
+    margin-top: 20px;
+}
