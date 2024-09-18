@@ -84,6 +84,14 @@
             </div>
         </div>
     </div>
+    <div class="col-sm-12 mb-3">
+        <button id="returnButton" class="rtrhome-button btn btn-primary">Return to Home</button>
+        <script>
+            document.getElementById('returnButton').addEventListener('click', function() {
+                window.location.href = '/'; // goes back to home
+            });
+        </script>
+    </div>
 </div>
     
 {% endblock %}
