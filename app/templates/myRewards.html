@@ -3,6 +3,7 @@
 {% block title %}
     {{my_title | default("My Rewards")}}
 {% endblock %}
+
 {% block lang %}
 <div id="change-lang">
     <button class="button-82-pushable" role="button" onclick="changeLanguage()">
@@ -14,16 +15,55 @@
     </button>
 </div>
 {% endblock %}
+
 {% block content %}
-<div>
-Sorry you currently don't have any rewards
+
+<div class="prize-container text-center">
+    <h3>Select Your Prize</h3>
+    <div class="row">
+        <div class="col-md-4">
+            <img src="../static/assets/img/prize1.jpg" alt="Prize 1" class="img-fluid">
+            <p>Cream Crackers</p>
+            <a class="button-82-pushable" href="#" onclick="alert('Claiming Cream Crackers!')">
+                <button class="button-82-pushable" role="button">
+                    <span class="button-82-shadow"></span>
+                    <span class="button-82-edge"></span>
+                    <span class="button-82-front text">Claim Prize</span>
+                </button>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <img src="../static/assets/img/prize2.jpg" alt="Prize 2" class="img-fluid">
+            <p>$5 NTUC Voucher</p>
+            <a class="button-82-pushable" href="#" onclick="alert('Claiming $5 NTUC Vouchers!')">
+                <button class="button-82-pushable" role="button">
+                    <span class="button-82-shadow"></span>
+                    <span class="button-82-edge"></span>
+                    <span class="button-82-front text">Claim Prize</span>
+                </button>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <img src="../static/assets/img/prize3.jpg" alt="Prize 3" class="img-fluid">
+            <p>$20 NTUC Voucher</p>
+            <a class="button-82-pushable" href="#" onclick="alert('Claiming $20 NTUC Vouchers!')">
+                <button class="button-82-pushable" role="button">
+                    <span class="button-82-shadow"></span>
+                    <span class="button-82-edge"></span>
+                    <span class="button-82-front text">Claim Prize</span>
+                </button>
+            </a>
+        </div>
+    </div>
 </div>
-<div>
+<div class="text-center mt-4"></div>
     <button id="returnButton" class="rtrhome-button btn btn-primary">Return to Home</button>
-    <script>
-        document.getElementById('returnButton').addEventListener('click', function() {
-            window.location.href = '/'; // goes back to home
-        });
-    </script>
 </div>
+<script>
+    document.getElementById('returnButton').addEventListener('click', function() {
+        window.location.href = '/'; // goes back to home
+    });
+</script>
+
+
 {% endblock %}
