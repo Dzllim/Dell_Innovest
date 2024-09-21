@@ -19,18 +19,26 @@
 {% block content %}
 
 <div class="prize-container text-center">
-    <button id="spin"></button>
-<span class="arrow"></span>
-<div class="wapper">
-    <div class="one">one</div>
-    <div class="two">two</div>
-    <div class="three">three</div>
-    <div class="four">four</div>
-    <div class="five">five</div>
-    <div class="six">six</div>
-    <div class="seven">seven</div>
-    <div class="eight">eight</div>
-</div>
+    <br><br>
+    <div class="col-md-12">
+        <fieldset class="ui-wheel-of-fortune">
+            <ul>
+              <li>Cream Crackers</li>
+              <li>$5 NTUC Voucher</li>
+              <li>$20 NTUC Voucher</li>
+              <li>Cream Crackers</li>
+              <li>$5 NTUC Voucher</li>
+              <li>$5 NTUC Voucher</li>
+              <li>$20 NTUC Voucher</li>
+              <li>Cream Crackers</li>
+              <li>$10</li>
+              <li>$99</li>
+              <li>$100</li>
+              <li>$100</li>
+            </ul>
+            <button type="button">SPIN</button>
+        </fieldset>
+    </div>
     <h3>Select Your Prize</h3>
     <div class="row">
         <div class="col-md-4">
@@ -76,6 +84,7 @@
         window.location.href = '/'; // goes back to home
     });
 </script>
+<script src="../static/assets/js/wheel.js"></script>
 
 
 {% endblock %}
