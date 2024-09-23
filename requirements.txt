@@ -14,4 +14,3 @@ WTForms==2.3.3
 email_validator
 gtts
 mediapipe==0.10.10
-cv2
