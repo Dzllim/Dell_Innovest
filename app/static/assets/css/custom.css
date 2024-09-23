@@ -182,7 +182,7 @@ a:hover, a:visited {
     position: relative;
     padding: 12px 27px;
     border-radius: 12px;
-    font-size: 0.8rem; /* Increased font size for buttons */
+    font-size: 1rem; /* Increased font size for buttons */
     color: white;
     background: #004de6;
     will-change: transform;
@@ -340,7 +340,7 @@ a:hover, a:visited {
     direction: ltr;
     display: grid;
     position: relative;
-    width: 40%;
+    width: 55%;
     &::after {
       aspect-ratio: 1/cos(30deg);
       background-color: crimson;
