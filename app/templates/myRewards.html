@@ -214,29 +214,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <!-- Modal styling -->
 <style>
-    .modal {
-        display: none; 
-        position: fixed;
-        z-index: 1; 
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5); 
-    }
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9); /* Darker background for more focus on the modal */
+}
 
-    .modal-content {
-        background-color: #fff;
-        margin: 15% auto;
-        padding: 20px;
-        width: 80%;
-        text-align: center;
-    }
+.modal-content {
+    background-color: #fff;
+    margin: 2% auto; /* Less margin to make the modal taller */
+    padding: 80px; /* More padding for a more spacious look */
+    width: 90%; /* Increase width to 90% of the screen */
+    max-width: 1400px; /* Set a maximum width for larger screens */
+    text-align: center;
+    border-radius: 20px; /* Larger rounded corners for a softer look */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); /* More prominent shadow for depth */
+}
 
-    .modal-content button {
-        padding: 10px 20px;
-        font-size: 16px;
-    }
+.modal-content h2 {
+    font-size: 50px; /* Even larger title */
+    margin-bottom: 40px;
+}
+
+.modal-content p {
+    font-size: 36px; /* Significantly increase the font size of the prize text */
+    margin-bottom: 50px;
+}
+
+.modal-content button {
+    padding: 30px 60px; /* Larger button */
+    font-size: 28px; /* Increase the font size of the button */
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.modal-content button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
 </style>
 
 {% endblock %}
