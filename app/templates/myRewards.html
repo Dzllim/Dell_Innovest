@@ -105,87 +105,111 @@
 <!-- Script to handle the prize selection, spin animation, and pop-up -->
 <script>
 let isSpinning = false;
+let currentRotation = 0; // Track the total rotation
 
 function spinWheel() {
-    if (isSpinning) return; // Prevent multiple clicks at the same time
+    if (isSpinning) return; // Prevent multiple spins at the same time
     isSpinning = true;
 
-    const prizes = {
-        en: [
-            'Cream Crackers', '$5 NTUC Voucher', '$20 NTUC Voucher',
-            'Cream Crackers', '$5 NTUC Voucher', '$5 NTUC Voucher',
-            '$20 NTUC Voucher', 'Cream Crackers', '$10', '$99', '$100', '$100'
-        ],
-        zh: [
-            '奶油饼干', '$5 NTUC 代金券', '$20 NTUC 代金券',
-            '奶油饼干', '$5 NTUC 代金券', '$5 NTUC 代金券',
-            '$20 NTUC 代金券', '奶油饼干', '$10', '$99', '$100', '$100'
-        ]
-    };
+    const wheel = document.querySelector('.wheel');
+    const prizes = translations[currentLang].prizes;
 
-    // Randomly select a prize index
-    const randomPrizeIndex = Math.floor(Math.random() * prizes[currentLang].length);
+    // Randomly select a prize index (0 to 11 since there are 12 prizes)
+    const randomPrizeIndex = Math.floor(Math.random() * prizes.length);
 
-    // Show the randomly selected prize in the modal
-    const selectedPrize = prizes[currentLang][randomPrizeIndex];
-    document.getElementById('prizeText').innerText = `${translations[currentLang]['prize-won']} ${selectedPrize}`;
-    document.getElementById('prizeModal').style.display = "block"; // Display the prize in the modal
-    isSpinning = false; // Allow for the next click
+    // Each segment is 30 degrees (360 / 12), so calculate the angle to stop at the prize
+    const prizeAngle = randomPrizeIndex * 30;
+
+    // Add extra spins (e.g., 5 full spins) to make the spin feel exciting
+    const extraSpins = 360 * 5; // 5 full spins
+
+    // Calculate the total rotation: extra spins + the exact angle to stop at the random prize
+    const totalRotation = extraSpins + prizeAngle;
+
+    // Reset the wheel to 0 degrees before spinning
+    wheel.style.transition = 'none'; // Disable transition to reset instantly
+    wheel.style.transform = `rotate(${currentRotation % 360}deg)`; // Reset to last rotation
+
+    setTimeout(() => {
+        // Apply the spin after resetting
+        wheel.style.transition = 'transform 5s ease-out'; // Set spin duration to 5 seconds
+        wheel.style.transform = `rotate(${currentRotation + totalRotation}deg)`; // Spin to the calculated total rotation
+    }, 100); // Apply a small delay to ensure the reset has happened
+
+    // Update current rotation for future spins
+    currentRotation += totalRotation;
+
+    // Show the prize in the modal after the spin ends
+    setTimeout(() => {
+        const selectedPrize = prizes[randomPrizeIndex]; // Use the random index to display the correct prize
+        document.getElementById('prizeText').innerText = `${translations[currentLang]["prize-won"]} ${selectedPrize}`;
+        document.getElementById('prizeModal').style.display = "block"; // Show the prize in the modal
+        isSpinning = false; // Allow the next spin
+    }, 5100); // Match the timeout to the spin duration (5 seconds)
 }
 
 function closeModal() {
     document.getElementById('prizeModal').style.display = "none"; // Close the modal window
 }
-</script>
 
-<!-- Translation and Language Switching -->
-<script>
-    let currentLang = localStorage.getItem('lang') || 'en';
-    const translations = {
-        en: {
-            "lang-switch": "ENG / 中文",
-            "prize-1": "Cream Crackers",
-            "prize-2": "$5 NTUC Voucher",
-            "prize-3": "$20 NTUC Voucher",
-            "spin-button": "SPIN",
-            "congrats-message": "Congratulations!",
-            "close-button": "Close",
-            "select-prize": "Select Your Prize",
-            "claim-button": "Claim Prize",
-            "return-button": "Return to Home",
-            "prize-won": "You won:"
-        },
-        zh: {
-            "lang-switch": "中文 / ENG",
-            "prize-1": "奶油饼干",
-            "prize-2": "$5 NTUC 代金券",
-            "prize-3": "$20 NTUC 代金券",
-            "spin-button": "旋转",
-            "congrats-message": "恭喜！",
-            "close-button": "关闭",
-            "select-prize": "选择您的奖品",
-            "claim-button": "领取奖品",
-            "return-button": "返回首页",
-            "prize-won": "您赢得了:"
-        }
-    };
 
-    function applyLanguage(lang) {
-        document.querySelectorAll("[data-translate]").forEach((element) => {
-            const key = element.getAttribute("data-translate");
-            element.textContent = translations[lang][key];
-        });
+let currentLang = localStorage.getItem('lang') || 'en';
+const translations = {
+    en: {
+        "lang-switch": "ENG / 中文",
+        "prize-1": "Cream Crackers",
+        "prize-2": "$5 NTUC Voucher",
+        "prize-3": "$20 NTUC Voucher",
+        "spin-button": "SPIN",
+        "congrats-message": "Congratulations!",
+        "close-button": "Close",
+        "select-prize": "Select Your Prize",
+        "claim-button": "Claim Prize",
+        "return-button": "Return to Home",
+        "prize-won": "You won:",
+        "prizes": [
+            "Cream Crackers", "$5 NTUC Voucher", "$20 NTUC Voucher",
+            "Cream Crackers", "$5 NTUC Voucher", "$5 NTUC Voucher",
+            "$20 NTUC Voucher", "Cream Crackers", "$10", "$99", "$100", "$100"
+        ]
+    },
+    zh: {
+        "lang-switch": "中文 / ENG",
+        "prize-1": "奶油饼干",
+        "prize-2": "$5 NTUC 代金券",
+        "prize-3": "$20 NTUC 代金券",
+        "spin-button": "旋转",
+        "congrats-message": "恭喜！",
+        "close-button": "关闭",
+        "select-prize": "选择您的奖品",
+        "claim-button": "领取奖品",
+        "return-button": "返回首页",
+        "prize-won": "您赢得了:",
+        "prizes": [
+            "奶油饼干", "$5 NTUC 代金券", "$20 NTUC 代金券",
+            "奶油饼干", "$5 NTUC 代金券", "$5 NTUC 代金券",
+            "$20 NTUC 代金券", "奶油饼干", "$10", "$99", "$100", "$100"
+        ]
     }
+};
 
-    function changeLanguage() {
-        currentLang = currentLang === 'en' ? 'zh' : 'en';
-        localStorage.setItem('lang', currentLang);
-        applyLanguage(currentLang);
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        applyLanguage(currentLang);
+function applyLanguage(lang) {
+    document.querySelectorAll("[data-translate]").forEach((element) => {
+        const key = element.getAttribute("data-translate");
+        element.textContent = translations[lang][key];
     });
+}
+
+function changeLanguage() {
+    currentLang = currentLang === 'en' ? 'zh' : 'en';
+    localStorage.setItem('lang', currentLang);
+    applyLanguage(currentLang);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    applyLanguage(currentLang);
+});
+
 </script>
 
 <!-- Modal styling -->
